@@ -1,10 +1,7 @@
-C:\Users\hide\documents\visual studio 2010\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\SvnChecker.exe
-C:\Users\hide\documents\visual studio 2010\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\SvnChecker.pdb
-C:\cygwin\home\SvnChecker\WindowsFormsApplication1\obj\x86\Debug\SvnChecker.exe
-C:\cygwin\home\SvnChecker\WindowsFormsApplication1\obj\x86\Debug\SvnChecker.pdb
-C:\cygwin\home\SvnChecker\WindowsFormsApplication1\bin\Debug\SvnChecker.exe
-C:\cygwin\home\SvnChecker\WindowsFormsApplication1\bin\Debug\SvnChecker.pdb
-C:\cygwin\home\SvnChecker\WindowsFormsApplication1\obj\x86\Debug\SvnChecker.csprojResolveAssemblyReference.cache
-C:\cygwin\home\SvnChecker\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
-C:\cygwin\home\SvnChecker\WindowsFormsApplication1\obj\x86\Debug\SvnChecker.Properties.Resources.resources
-C:\cygwin\home\SvnChecker\WindowsFormsApplication1\obj\x86\Debug\SvnChecker.csproj.GenerateResource.Cache
+C:\cygwin\home\SvnChecker\SvnChecker\WindowsFormsApplication1\bin\Debug\SvnChecker.exe
+C:\cygwin\home\SvnChecker\SvnChecker\WindowsFormsApplication1\bin\Debug\SvnChecker.pdb
+C:\cygwin\home\SvnChecker\SvnChecker\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+C:\cygwin\home\SvnChecker\SvnChecker\WindowsFormsApplication1\obj\x86\Debug\SvnChecker.Properties.Resources.resources
+C:\cygwin\home\SvnChecker\SvnChecker\WindowsFormsApplication1\obj\x86\Debug\SvnChecker.csproj.GenerateResource.Cache
+C:\cygwin\home\SvnChecker\SvnChecker\WindowsFormsApplication1\obj\x86\Debug\SvnChecker.exe
+C:\cygwin\home\SvnChecker\SvnChecker\WindowsFormsApplication1\obj\x86\Debug\SvnChecker.pdb
