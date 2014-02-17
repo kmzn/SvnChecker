@@ -66,8 +66,21 @@ namespace WindowsFormsApplication1
             Console.WriteLine(sec.ToString() + "秒経過...");
 
             SvnGetter svnGetter = new SvnGetter();
+            string url = "http://svn.wikimedia.org/svnroot/mediawiki/tags/REL1_6_2/phase3";
             svnGetter.GetInfomation(url);
             Console.WriteLine(svnGetter.GetRevisionNumber());
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ListViewItem lvi = new ListViewItem(textBox1.Text);
+            listView1.Items.Add(lvi);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (listView1.Items.Count > 0 && listView1.SelectedItems.Count > 0)
+                listView1.Items.Remove(listView1.SelectedItems[0]);
         }
     }
 }

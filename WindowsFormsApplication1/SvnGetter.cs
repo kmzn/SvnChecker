@@ -8,8 +8,9 @@ using System.IO;
 
     
 class SvnGetter
-    {
-        private string svnInfomationXml = "";
+{
+    private string svn = "C:/cygwin/bin/svn.exe";
+    private string svnInfomationXml = "";
 
         public bool GetInfomation(string queryUrl)
         {
@@ -26,14 +27,14 @@ class SvnGetter
             p.StartInfo.CreateNoWindow = true;
             //コマンドラインを指定（"/c"は実行後閉じるために必要）
             // svn info $url --xml
-            p.StartInfo.Arguments = "/c c:/\"Program Files (x86)\"/Subversion/bin/svn.exe info --xml " + queryUrl;//@"/c C:\\'Program Files (x86)'\\Subversion\\bin\\svnversion.exe ";
-
+            //p.StartInfo.Arguments = "/c c:/\"Program Files (x86)\"/Subversion/bin/svn.exe info --xml " + queryUrl;
+            p.StartInfo.Arguments = "/c " + svn +  " info --xml " + queryUrl;
             //起動
             p.Start();
 
             //出力を読み取る
             svnInfomationXml = p.StandardOutput.ReadToEnd();
-
+        
             //プロセス終了まで待機する
             //WaitForExitはReadToEndの後である必要がある
             //(親プロセス、子プロセスでブロック防止のため)
@@ -49,12 +50,13 @@ class SvnGetter
             using (XmlReader reader = XmlReader.Create(new StringReader(svnInfomationXml)))
             {
                 reader.ReadToFollowing("entry");
-                reader.MoveToNextAttribute();
-                reader.MoveToNextAttribute();
-                reader.MoveToNextAttribute();
-
-                return reader.Value;
+                while (reader.MoveToNextAttribute())
+                {
+                    if (reader.Name == "revision")
+                        return reader.Value;
+                }
             }
+            return "";
         }
     }
 
