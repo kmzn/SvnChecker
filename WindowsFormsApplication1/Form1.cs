@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.IO;
+using System.Threading;
 
 namespace WindowsFormsApplication1
 {
@@ -65,6 +66,12 @@ namespace WindowsFormsApplication1
             sec++;
             Console.WriteLine(sec.ToString() + "秒経過...");
 
+            Thread thread = new Thread(new ThreadStart(GetSvnInfomation));
+            thread.Start();
+        }
+
+        private void GetSvnInfomation()
+        {
             SvnGetter svnGetter = new SvnGetter();
             string url = "http://svn.wikimedia.org/svnroot/mediawiki/tags/REL1_6_2/phase3";
             svnGetter.GetInfomation(url);
