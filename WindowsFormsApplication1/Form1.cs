@@ -80,14 +80,24 @@ namespace WindowsFormsApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ListViewItem lvi = new ListViewItem(textBox1.Text);
-            listView1.Items.Add(lvi);
+            listBox1.Items.Add(textBox1.Text);
+            listBox1.TopIndex = listBox1.Items.Count - listBox1.Height / listBox1.ItemHeight; 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (listView1.Items.Count > 0 && listView1.SelectedItems.Count > 0)
-                listView1.Items.Remove(listView1.SelectedItems[0]);
+            if (listBox1.Items.Count > 0 && listBox1.SelectedItems.Count > 0)
+                listBox1.Items.Remove(listBox1.SelectedItems[0]);
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
