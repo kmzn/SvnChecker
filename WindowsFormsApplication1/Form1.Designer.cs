@@ -107,6 +107,8 @@
             this.DeleteButton.Text = "Delete";
             this.DeleteButton.UseVisualStyleBackColor = true;
             this.DeleteButton.Click += new System.EventHandler(this.button2_Click);
+            this.DeleteButton.MouseHover += new System.EventHandler(TipsCollection.MouseHover);
+            
             // 
             // UrlListBox
             // 

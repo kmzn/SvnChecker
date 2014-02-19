@@ -35,6 +35,8 @@ namespace WindowsFormsApplication1
             timer1.Enabled = true;
 
             this.svnGetter.svnPath = this.config.SvnPath;
+            Console.WriteLine("this.config.Interval " + this.config.Interval);
+            Console.WriteLine("this.config.SvnPath " + this.config.SvnPath);
 
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -60,6 +62,7 @@ namespace WindowsFormsApplication1
 
         private void 終了ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.config.Write();
             this.notifyIcon1.Visible = false;
             // タスクトレイからアイコンを取り除く
             Application.Exit();
@@ -76,6 +79,7 @@ namespace WindowsFormsApplication1
         {
             Parallel.ForEach(this.config.RepositoryData, x =>
             {
+                Console.WriteLine("url " + x.url + " rev " + x.revision);
                 svnGetter.GetInfomation(x.url);
                 Console.WriteLine(svnGetter.GetRevisionNumber());
 

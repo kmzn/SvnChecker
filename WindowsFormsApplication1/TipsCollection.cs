@@ -14,6 +14,7 @@ class TipsCollection
     {
         label = l;
         tips["AddButton"] = "Add New URL";
+        tips["DeleteButton"] = "Delete selected URL";
     }
     static public void MouseHover(object sender, EventArgs e)
     {

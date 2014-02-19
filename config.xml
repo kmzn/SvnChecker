@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="Shift_JIS" ?>
+
+<setting>
+  <svn path="">
+  </svn>
+  <interval sec="60000">
+  </interval>
+
+  <repositories>
+  <repository url="http://svn.wikimedia.org/svnroot/mediawiki/tags/REL1_6_2/phase3"
+	      revision="1">
+  </repository>
+</repositories>
+  
+</setting>
+
+

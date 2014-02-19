@@ -83,4 +83,45 @@ class Config
             configDictionary[REPOSITORY_TAG] = svnDataCollection;
         }
     }
+
+    public void Write()
+    {
+        XmlWriterSettings settings = new XmlWriterSettings();
+        settings.Indent = true;
+        settings.IndentChars = "  ";
+        settings.Encoding = Encoding.UTF8;
+
+        using (XmlWriter xmlWriter = XmlWriter.Create(filePath, settings))
+        {
+            xmlWriter.WriteStartElement("setting");
+
+            xmlWriter.WriteStartElement("svn");
+            xmlWriter.WriteStartAttribute("path");
+            xmlWriter.WriteValue(configDictionary[SVN_PATH_TAG]);
+            xmlWriter.WriteEndAttribute();
+            xmlWriter.WriteEndElement();
+
+            xmlWriter.WriteStartElement(INTERVAL_TAG);
+            xmlWriter.WriteStartAttribute("sec");
+            xmlWriter.WriteValue(configDictionary[INTERVAL_TAG]);
+            xmlWriter.WriteEndAttribute();
+            xmlWriter.WriteEndElement();
+
+            xmlWriter.WriteStartElement("repositories");
+            foreach (var item in this.RepositoryData)
+            {
+                xmlWriter.WriteStartElement(REPOSITORY_TAG);
+                xmlWriter.WriteStartAttribute("url");
+                xmlWriter.WriteValue(item.url);
+                xmlWriter.WriteStartAttribute("revision");
+                xmlWriter.WriteValue(item.revision);
+                xmlWriter.WriteEndAttribute();
+                xmlWriter.WriteEndElement();
+            }
+            xmlWriter.WriteEndElement();
+
+            xmlWriter.WriteEndElement();
+            xmlWriter.Flush();
+        }
+    }
 }
