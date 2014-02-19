@@ -25,7 +25,7 @@ namespace WindowsFormsApplication1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            TipsCollection.Initialize(this.label2);
             this.config.Read();
 
             // １秒単位でイベントを発生させる
@@ -91,19 +91,14 @@ namespace WindowsFormsApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Add(textBox1.Text);
-            listBox1.TopIndex = listBox1.Items.Count - listBox1.Height / listBox1.ItemHeight; 
-        }
-
-        private void button1_MouseHover(object sender, EventArgs e)
-        {
-            this.label2.Text = "Add New URL";
+            UrlListBox.Items.Add(UrlBox.Text);
+            UrlListBox.TopIndex = UrlListBox.Items.Count - UrlListBox.Height / UrlListBox.ItemHeight; 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (listBox1.Items.Count > 0 && listBox1.SelectedItems.Count > 0)
-                listBox1.Items.Remove(listBox1.SelectedItems[0]);
+            if (UrlListBox.Items.Count > 0 && UrlListBox.SelectedItems.Count > 0)
+                UrlListBox.Items.Remove(UrlListBox.SelectedItems[0]);
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
