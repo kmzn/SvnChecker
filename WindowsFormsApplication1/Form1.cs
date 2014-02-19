@@ -78,10 +78,21 @@ namespace WindowsFormsApplication1
             Console.WriteLine(svnGetter.GetRevisionNumber());
         }
 
+        private void textBox1_MouseHover(object sender, EventArgs e)
+        {
+            this.label2.Text = "Input New URL";
+            Console.WriteLine(((Control)sender).Name);
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             listBox1.Items.Add(textBox1.Text);
             listBox1.TopIndex = listBox1.Items.Count - listBox1.Height / listBox1.ItemHeight; 
+        }
+
+        private void button1_MouseHover(object sender, EventArgs e)
+        {
+            this.label2.Text = "Add New URL";
         }
 
         private void button2_Click(object sender, EventArgs e)
