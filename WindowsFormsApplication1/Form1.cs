@@ -16,6 +16,7 @@ namespace WindowsFormsApplication1
     {
         // 秒数
         private int sec = 0;
+        SvnGetter svnGetter = new SvnGetter();
 
         public Form1()
         {
@@ -24,13 +25,21 @@ namespace WindowsFormsApplication1
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Config config = new Config();
+            config.Read();
+
             this.notifyIcon1.ShowBalloonTip(500);
 
             // １秒単位でイベントを発生させる
-            timer1.Interval = 10000;
+            timer1.Interval = config.Interval;
 
             // タイマーを有効に
             timer1.Enabled = true;
+
+            this.svnGetter.svnPath = config.SvnPath;
+
+            Console.WriteLine("config.Interval " + config.Interval);
+            Console.WriteLine("config.SvnDir " + config.SvnPath);
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -72,7 +81,7 @@ namespace WindowsFormsApplication1
 
         private void GetSvnInfomation()
         {
-            SvnGetter svnGetter = new SvnGetter();
+            
             string url = "http://svn.wikimedia.org/svnroot/mediawiki/tags/REL1_6_2/phase3";
             svnGetter.GetInfomation(url);
             Console.WriteLine(svnGetter.GetRevisionNumber());

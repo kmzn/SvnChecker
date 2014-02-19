@@ -9,7 +9,7 @@ using System.IO;
     
 class SvnGetter
 {
-    private string svn = "C:/cygwin/bin/svn.exe";
+    public string svnPath = "C:/cygwin/bin/svn.exe";
     private string svnInfomationXml = "";
 
         public bool GetInfomation(string queryUrl)

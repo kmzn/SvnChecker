@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="Shift_JIS" ?>
+
+<setting>
+  <svn path="">
+  </svn>
+  <interval sec="60000">
+  </interval>
+
+  <repositories>
+  <repository url=""
+	      revision="">
+  </repository>
+</repositories>
+  
+</setting>
+
+
