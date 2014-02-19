@@ -9,14 +9,14 @@ using System.Windows.Forms;
 using System.Xml;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
-        // 秒数
-        private int sec = 0;
-        SvnGetter svnGetter = new SvnGetter();
+        private SvnGetter svnGetter = new SvnGetter();
+        private Config config = new Config();
 
         public Form1()
         {
@@ -25,21 +25,17 @@ namespace WindowsFormsApplication1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Config config = new Config();
-            config.Read();
-
-            this.notifyIcon1.ShowBalloonTip(500);
+            
+            this.config.Read();
 
             // １秒単位でイベントを発生させる
-            timer1.Interval = config.Interval;
+            timer1.Interval = this.config.Interval;
 
             // タイマーを有効に
             timer1.Enabled = true;
 
-            this.svnGetter.svnPath = config.SvnPath;
+            this.svnGetter.svnPath = this.config.SvnPath;
 
-            Console.WriteLine("config.Interval " + config.Interval);
-            Console.WriteLine("config.SvnDir " + config.SvnPath);
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -72,19 +68,19 @@ namespace WindowsFormsApplication1
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            sec++;
-            Console.WriteLine(sec.ToString() + "秒経過...");
-
             Thread thread = new Thread(new ThreadStart(GetSvnInfomation));
             thread.Start();
         }
 
         private void GetSvnInfomation()
         {
+            Parallel.ForEach(this.config.RepositoryData, x =>
+            {
+                svnGetter.GetInfomation(x.url);
+                Console.WriteLine(svnGetter.GetRevisionNumber());
+
+            });
             
-            string url = "http://svn.wikimedia.org/svnroot/mediawiki/tags/REL1_6_2/phase3";
-            svnGetter.GetInfomation(url);
-            Console.WriteLine(svnGetter.GetRevisionNumber());
         }
 
         private void textBox1_MouseHover(object sender, EventArgs e)

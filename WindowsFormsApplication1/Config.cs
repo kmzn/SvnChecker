@@ -6,10 +6,12 @@ using System.Xml;
 
 class Config
 {
+    private const string REPOSITORY_TAG = "repository";
     private const string INTERVAL_TAG = "interval";
     private const string SVN_PATH_TAG = "path";
     private string filePath = "../../config.xml";
-    Dictionary<string, Object> configDictionary = new Dictionary<string, object>();
+    private Dictionary<string, Object> configDictionary = new Dictionary<string, object>();
+    private RepositoryDataCollection svnDataCollection = new RepositoryDataCollection();
     
     public int Interval
     {
@@ -18,6 +20,10 @@ class Config
     public string SvnPath
     {
         get { return (string)configDictionary[SVN_PATH_TAG]; }
+    }
+    public RepositoryDataCollection RepositoryData
+    {
+        get { return (RepositoryDataCollection)configDictionary[REPOSITORY_TAG]; }
     }
     public void Read()
     {
@@ -37,28 +43,44 @@ class Config
                     else if (reader.LocalName == INTERVAL_TAG)
                     {
                         reader.MoveToAttribute(0);
-                        configDictionary[INTERVAL_TAG] = (Object)reader.Value;
-                        Console.WriteLine("configDictionary[INTERVAL_TAG] " + configDictionary[INTERVAL_TAG]);
+                        configDictionary[INTERVAL_TAG] = reader.Value;
                     }
-                    Console.WriteLine("開始タグ : {0} (深さ : {1})",
-                        reader.LocalName, reader.Depth);
-                    // 属性があった場合
-                    if (reader.HasAttributes)
+                    else if (reader.LocalName == REPOSITORY_TAG)
                     {
-                        // すべての属性を表示
-                        for (int i = 0; i < reader.AttributeCount; i++)
+                        // 属性があった場合
+                        if (reader.HasAttributes)
                         {
-                            // 属性ノードへ移動
-                            reader.MoveToAttribute(i);
-                            // 属性名、及び属性の値を表示
-                            Console.Write("{1} = {2} ", i, reader.Name, reader.Value);
+                            int rev = 0;
+                            string url = "";
+                            // すべての属性を表示
+                            for (int i = 0; i < reader.AttributeCount; i++)
+                            {
+                                // 属性ノードへ移動
+                                reader.MoveToAttribute(i);
+                                
+                                if (reader.Name == "url")
+                                {
+                                    url = reader.Value;
+                                }
+                                else if (reader.Name == "revision")
+                                {
+                                    try {
+                                        rev = int.Parse(reader.Value);
+                                    }
+                                    catch (Exception e) {
+                                        Console.WriteLine(e + " reader.Value (" + reader.Value + ")");
+                                    }
+                                }
+                                
+                            }
+                            // すべての属性を出力したら、元のノード(エレメントノード)に戻る
+                            reader.MoveToElement();
+                            svnDataCollection.Add(new RepositoryData(url, rev));
                         }
-                        Console.Write(System.Environment.NewLine);
-                        // すべての属性を出力したら、元のノード(エレメントノード)に戻る
-                        reader.MoveToElement();
                     }
                 }
             }
+            configDictionary[REPOSITORY_TAG] = svnDataCollection;
         }
     }
 }
