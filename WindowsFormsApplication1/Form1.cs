@@ -84,8 +84,17 @@ namespace WindowsFormsApplication1
             {
                 Console.WriteLine("url " + x.url + " rev " + x.revision);
                 svnGetter.GetInfomation(x.url);
-                Console.WriteLine(svnGetter.GetRevisionNumber());
-
+                
+                if (x.revision < svnGetter.GetRevisionNumber()) 
+                {
+                    Console.WriteLine(svnGetter.GetRevisionNumber());
+                    x.revision = svnGetter.GetRevisionNumber();
+                    //バルーンヒントのタイトル
+                    this.notifyIcon1.BalloonTipTitle = "Committed";
+                    //バルーンヒントに表示するメッセージ
+                    this.notifyIcon1.BalloonTipText = x.url;
+                    this.notifyIcon1.ShowBalloonTip(10000); // バルーンTip表示
+                }
             });
             
         }

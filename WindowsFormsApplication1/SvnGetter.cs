@@ -44,7 +44,7 @@ class SvnGetter
             return true;
         }
 
-        public string GetRevisionNumber()
+        public int GetRevisionNumber()
         {
             // Create an XmlReader
             using (XmlReader reader = XmlReader.Create(new StringReader(svnInfomationXml)))
@@ -53,10 +53,19 @@ class SvnGetter
                 while (reader.MoveToNextAttribute())
                 {
                     if (reader.Name == "revision")
-                        return reader.Value;
+                    {
+                        try
+                        {
+                            return int.Parse(reader.Value);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e + " reader.Value (" + reader.Value + ")");
+                        }
+                    }
                 }
             }
-            return "";
+            return 0;
         }
     }
 
