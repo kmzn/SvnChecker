@@ -37,6 +37,10 @@ namespace WindowsFormsApplication1
             this.svnGetter.svnPath = this.config.SvnPath;
             Console.WriteLine("this.config.Interval " + this.config.Interval);
             Console.WriteLine("this.config.SvnPath " + this.config.SvnPath);
+            foreach (var item in this.config.RepositoryData)
+            {
+                this.UrlListBox.Items.Add(item.url);
+            }
 
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -46,7 +50,6 @@ namespace WindowsFormsApplication1
                 e.Cancel = true;                  // 終了処理キャンセル
                 this.Visible = false;                 // フォーム非表示
                 this.notifyIcon1.Visible = true;      // Notifyアイコン表示
-                this.notifyIcon1.ShowBalloonTip(500); // バルーンTip表示
             }
         }
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
