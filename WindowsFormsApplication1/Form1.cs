@@ -37,11 +37,10 @@ namespace WindowsFormsApplication1
             this.svnGetter.svnPath = this.config.SvnPath;
             Console.WriteLine("this.config.Interval " + this.config.Interval);
             Console.WriteLine("this.config.SvnPath " + this.config.SvnPath);
-            foreach (var item in this.config.RepositoryData)
+            foreach (var item in this.config.Repository)
             {
                 this.UrlListBox.Items.Add(item.url);
             }
-
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -80,7 +79,7 @@ namespace WindowsFormsApplication1
 
         private void GetSvnInfomation()
         {
-            Parallel.ForEach(this.config.RepositoryData, x =>
+            Parallel.ForEach(this.config.Repository, x =>
             {
                 Console.WriteLine("url " + x.url + " rev " + x.revision);
                 svnGetter.GetInfomation(x.url);

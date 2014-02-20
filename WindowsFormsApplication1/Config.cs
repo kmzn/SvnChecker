@@ -11,7 +11,6 @@ class Config
     private const string SVN_PATH_TAG = "path";
     private string filePath = "../../config.xml";
     private Dictionary<string, Object> configDictionary = new Dictionary<string, object>();
-    private RepositoryDataCollection svnDataCollection = new RepositoryDataCollection();
     
     public int Interval
     {
@@ -21,13 +20,14 @@ class Config
     {
         get { return (string)configDictionary[SVN_PATH_TAG]; }
     }
-    public RepositoryDataCollection RepositoryData
+    public RepositoryDataCollection Repository
     {
         get { return (RepositoryDataCollection)configDictionary[REPOSITORY_TAG]; }
     }
+    
     public void Read()
     {
-        
+        configDictionary[REPOSITORY_TAG] = new RepositoryDataCollection();
         using (XmlReader reader = XmlReader.Create(filePath))
         {
             while (reader.Read())
@@ -75,12 +75,11 @@ class Config
                             }
                             // すべての属性を出力したら、元のノード(エレメントノード)に戻る
                             reader.MoveToElement();
-                            svnDataCollection.Add(new RepositoryData(url, rev));
+                            ((RepositoryDataCollection)configDictionary[REPOSITORY_TAG]).Add(new RepositoryData(url, rev));
                         }
                     }
                 }
             }
-            configDictionary[REPOSITORY_TAG] = svnDataCollection;
         }
     }
 
@@ -108,7 +107,7 @@ class Config
             xmlWriter.WriteEndElement();
 
             xmlWriter.WriteStartElement("repositories");
-            foreach (var item in this.RepositoryData)
+            foreach (var item in this.Repository)
             {
                 xmlWriter.WriteStartElement(REPOSITORY_TAG);
                 xmlWriter.WriteStartAttribute("url");
