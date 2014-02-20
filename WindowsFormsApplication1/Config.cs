@@ -27,6 +27,7 @@ class Config
     
     public void Read()
     {
+        configDictionary[SVN_PATH_TAG] = "C:/cygwin/bin/svn.exe";
         configDictionary[REPOSITORY_TAG] = new RepositoryDataCollection();
         using (XmlReader reader = XmlReader.Create(filePath))
         {
@@ -38,7 +39,7 @@ class Config
                     if (reader.LocalName == "svn")
                     {
                         reader.MoveToAttribute(0);
-                        configDictionary[SVN_PATH_TAG] = reader.Value;
+                        configDictionary[SVN_PATH_TAG] = reader.Value == "" ? configDictionary[SVN_PATH_TAG] : reader.Value;
                     }
                     else if (reader.LocalName == INTERVAL_TAG)
                     {

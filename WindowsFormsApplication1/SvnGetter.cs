@@ -27,8 +27,8 @@ class SvnGetter
             p.StartInfo.CreateNoWindow = true;
             //コマンドラインを指定（"/c"は実行後閉じるために必要）
             // svn info $url --xml
-            p.StartInfo.Arguments = "/c c:/\"Program Files (x86)\"/Subversion/bin/svn.exe info --xml " + queryUrl;
-            //p.StartInfo.Arguments = "/c " + svn +  " info --xml " + queryUrl;
+            //p.StartInfo.Arguments = "/c c:/\"Program Files (x86)\"/Subversion/bin/svn.exe info --xml " + queryUrl;
+            p.StartInfo.Arguments = "/c " + svnPath +  " info --xml " + queryUrl;
             //起動
             p.Start();
 
@@ -40,7 +40,7 @@ class SvnGetter
             //(親プロセス、子プロセスでブロック防止のため)
             p.WaitForExit();
             p.Close();
-
+            //Console.WriteLine("svnInfomationXml " + svnInfomationXml + " p.StartInfo.Arguments " + p.StartInfo.Arguments); 
             return true;
         }
 
@@ -49,7 +49,14 @@ class SvnGetter
             // Create an XmlReader
             using (XmlReader reader = XmlReader.Create(new StringReader(svnInfomationXml)))
             {
-                reader.ReadToFollowing("entry");
+                try
+                {
+                    reader.ReadToFollowing("entry");
+                }   
+                catch (Exception e)
+                {
+                    Console.WriteLine(e + " " +svnInfomationXml);    
+                }
                 while (reader.MoveToNextAttribute())
                 {
                     if (reader.Name == "revision")
