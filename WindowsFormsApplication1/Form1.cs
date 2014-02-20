@@ -83,9 +83,19 @@ namespace WindowsFormsApplication1
             {
                 Console.WriteLine("url " + x);
                 svnGetter.GetInfomation(x);
-                if (this.config.Repository.Contains(x) && this.config.Repository[x].revision < svnGetter.GetRevisionNumber()) 
+                if (this.config.Repository.Contains(x) && this.config.Repository[x].revision < svnGetter.GetRevisionNumber())
                 {
                     Console.WriteLine(svnGetter.GetRevisionNumber());
+                    this.config.Repository[x].revision = svnGetter.GetRevisionNumber();
+                    //バルーンヒントのタイトル
+                    this.notifyIcon1.BalloonTipTitle = "Committed";
+                    //バルーンヒントに表示するメッセージ
+                    this.notifyIcon1.BalloonTipText = this.config.Repository[x].url;
+                    this.notifyIcon1.ShowBalloonTip(10000); // バルーンTip表示
+                }
+                else if ( ! this.config.Repository.Contains(x))
+                {
+                    this.config.Repository.Add(new RepositoryData(x, 0));
                     this.config.Repository[x].revision = svnGetter.GetRevisionNumber();
                     //バルーンヒントのタイトル
                     this.notifyIcon1.BalloonTipTitle = "Committed";

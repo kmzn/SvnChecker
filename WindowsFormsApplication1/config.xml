@@ -4,5 +4,6 @@
   <interval sec="60000" />
   <repositories>
     <repository url="http://svn.wikimedia.org/svnroot/mediawiki/tags/REL1_6_2/phase3" revision="115794" />
+    <repository url="http://svn.openscenegraph.org/osg" revision="14098" />
   </repositories>
 </setting>
