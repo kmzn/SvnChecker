@@ -30,9 +30,10 @@ namespace WindowsFormsApplication1
 
             // １秒単位でイベントを発生させる
             timer1.Interval = this.config.Interval;
-
+            timer2.Interval = timer1.Interval;
             // タイマーを有効に
             timer1.Enabled = true;
+            timer2.Enabled = true;
 
             this.svnGetter.svnPath = this.config.SvnPath;
             Console.WriteLine("this.config.Interval " + this.config.Interval);
@@ -92,6 +93,7 @@ namespace WindowsFormsApplication1
                     //バルーンヒントに表示するメッセージ
                     this.notifyIcon1.BalloonTipText = this.config.Repository[x].url;
                     this.notifyIcon1.ShowBalloonTip(10000); // バルーンTip表示
+                    this.config.Repository[x].Update();
                 }
                 else if ( ! this.config.Repository.Contains(x))
                 {
@@ -102,6 +104,7 @@ namespace WindowsFormsApplication1
                     //バルーンヒントに表示するメッセージ
                     this.notifyIcon1.BalloonTipText = this.config.Repository[x].url;
                     this.notifyIcon1.ShowBalloonTip(10000); // バルーンTip表示
+                    this.config.Repository[x].Update();
                 }
             });
             
@@ -125,6 +128,16 @@ namespace WindowsFormsApplication1
                 UrlListBox.Items.Remove(UrlListBox.SelectedItems[0]);
         }
 
+        private void notifyIcon1_MouseClick(object sender, EventArgs e)
+        {
+            string url = ((NotifyIcon)sender).BalloonTipText;
+            if (this.config.Repository[url].IsUpdated())
+            {
+                this.config.Repository[url].Check();
+                Console.WriteLine(this.config.Repository[url].url);
+            }
+        }
+
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -133,6 +146,23 @@ namespace WindowsFormsApplication1
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            foreach (var item in this.config.Repository)
+            {
+                if (item.IsUpdated())
+                {
+                    item.IsChecked();
+                    Console.WriteLine(item.url);
+                    //バルーンヒントのタイトル
+                    this.notifyIcon1.BalloonTipTitle = "Committed";
+                    //バルーンヒントに表示するメッセージ
+                    this.notifyIcon1.BalloonTipText = item.url;
+                    this.notifyIcon1.ShowBalloonTip(10000); // バルーンTip表示
+                }
+            }
         }
     }
 }
