@@ -27,8 +27,8 @@ class SvnGetter
             p.StartInfo.CreateNoWindow = true;
             //コマンドラインを指定（"/c"は実行後閉じるために必要）
             // svn info $url --xml
-            //p.StartInfo.Arguments = "/c c:/\"Program Files (x86)\"/Subversion/bin/svn.exe info --xml " + queryUrl;
-            p.StartInfo.Arguments = "/c " + svnPath +  " info --xml " + queryUrl;
+            p.StartInfo.Arguments = "/c c:/\"Program Files (x86)\"/Subversion/bin/svn.exe info --xml " + queryUrl;
+            //p.StartInfo.Arguments = "/c " + svnPath +  " info --xml " + queryUrl;
             //起動
             p.Start();
 

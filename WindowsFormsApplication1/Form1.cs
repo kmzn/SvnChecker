@@ -110,12 +110,6 @@ namespace WindowsFormsApplication1
             
         }
 
-        private void textBox1_MouseHover(object sender, EventArgs e)
-        {
-            this.label2.Text = "Input New URL";
-            Console.WriteLine(((Control)sender).Name);
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             UrlListBox.Items.Add(UrlBox.Text);

@@ -87,7 +87,7 @@
             this.UrlBox.Name = "UrlBox";
             this.UrlBox.Size = new System.Drawing.Size(554, 22);
             this.UrlBox.TabIndex = 2;
-            this.UrlBox.MouseHover += new System.EventHandler(this.textBox1_MouseHover);
+            this.UrlBox.MouseHover += new System.EventHandler(TipsCollection.MouseHover);
             // 
             // AddButton
             // 
