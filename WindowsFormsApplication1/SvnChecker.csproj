@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MSDOSCommand.cs" />
     <Compile Include="RepositoryDataCollection.cs" />
     <Compile Include="TipsCollection.cs" />
     <Compile Include="Config.cs" />
