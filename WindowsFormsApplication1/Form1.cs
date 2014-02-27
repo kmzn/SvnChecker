@@ -128,7 +128,10 @@ namespace WindowsFormsApplication1
             if (this.config.Repository[url].IsUpdated())
             {
                 this.config.Repository[url].Check();
-                Console.WriteLine(this.config.Repository[url].url);
+                Console.WriteLine("notifyIcon1_MouseClick " + this.config.Repository[url].url);
+
+                // start repobrowser
+                MSDOSCommand.Excute("/c TortoiseProc.exe /command:repobrowser /path:" + url);
             }
         }
 

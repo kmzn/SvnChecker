@@ -14,7 +14,9 @@ class SvnGetter
 
         public bool GetInfomation(string queryUrl)
         {
-            svnInfomationXml = MSDOSCommand.Excute("/c " + svnPath + " info --xml " + queryUrl);
+
+            svnInfomationXml = MSDOSCommand.Excute("/c c:/\"Program Files (x86)\"/Subversion/bin/svn.exe info --xml " + queryUrl);
+            //svnInfomationXml = MSDOSCommand.Excute("/c " + svnPath + " info --xml " + queryUrl);
             Console.WriteLine("svnInfomationXml " + svnInfomationXml); 
             return true;
         }
